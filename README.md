@@ -66,9 +66,9 @@ También están disponibles `GET /api/config` (fechas y conteos) y `GET /api/hea
 3. En la carpeta del proyecto, ejecutar:
 
    ```powershell
-   npm install
-   npm run db:init
-   npm run db:seed
+   npm.cmd install
+   npm.cmd run db:init
+   npm.cmd run db:seed
    npm.cmd start
    ```
 
@@ -85,4 +85,4 @@ El usuario hace clic en un municipio del mapa. Leaflet solicita `GET /api/munici
 - [Consulta SQL independiente](docs/verificacion-sql.sql) para contrastar conteos, fechas, integridad, SRID y `ST_Covers`.
 - El endpoint `/api/health` muestra la base conectada y la versión de PostGIS.
 - El navegador muestra `/api/alertas` como GeoJSON y representa los polígonos mediante Leaflet.
-- Las capturas y salidas de verificación se guardan en `evidencias/`.
+- La evidencia SQL generada está en `evidencias/consulta-sql.txt`.
