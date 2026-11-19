@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#112d2c">
+  <title>Quindío en Alerta | Visor SIG</title>
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./index.html" aria-label="Quindío en Alerta, inicio">
+      <span class="brand-mark" aria-hidden="true">Q</span>
+      <span><strong>QUINDÍO</strong><small>EN ALERTA</small></span>
+    </a>
+    <div class="topbar-meta"><span class="live-dot"></span><span id="connection-status">Conectando con PostGIS…</span></div>
+    <div class="topbar-date" id="period-label">Análisis histórico</div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="control-panel">
+      <div class="eyebrow">OBSERVATORIO TERRITORIAL · QUINDÍO</div>
+      <h1>Lluvia y alertas<br><em>de deslizamiento</em></h1>
+      <p class="intro">Explora las alertas municipales de IDEAM y compáralas con la precipitación histórica estimada.</p>
+
+      <section class="filter-card" aria-labelledby="filters-heading">
+        <div class="section-heading"><span class="step-number">01</span><h2 id="filters-heading">Periodo de análisis</h2></div>
+        <div class="date-grid">
+          <label>Desde<input id="date-start" type="date"></label>
+          <label>Hasta<input id="date-end" type="date"></label>
+        </div>
+        <label class="select-label" for="level-filter">Mostrar desde nivel</label>
+        <select id="level-filter">
+          <option value="">Todos los niveles</option>
+          <option value="1">Baja o superior</option>
+          <option value="2">Moderada o superior</option>
+          <option value="3">Solo alta</option>
+        </select>
+        <button id="apply-filters" class="primary-button" type="button">Actualizar mapa <span aria-hidden="true">↗</span></button>
+      </section>
+
+      <section class="stats-grid" aria-label="Resumen del periodo">
+        <div class="stat-card"><span>Municipios</span><strong id="stat-municipalities">—</strong></div>
+        <div class="stat-card"><span>Alertas nivel 2–3</span><strong id="stat-alerts">—</strong></div>
+        <div class="stat-card stat-card-wide"><span>Precipitación media diaria estimada</span><strong><b id="stat-rain">—</b><small> mm</small></strong></div>
+      </section>
+
+      <section class="legend-section">
+        <div class="section-heading"><span class="step-number">02</span><h2>Nivel de alerta IDEAM</h2></div>
+        <div class="legend-list">
+          <span><i class="swatch level-3"></i>Alta</span>
+          <span><i class="swatch level-2"></i>Moderada</span>
+          <span><i class="swatch level-1"></i>Baja</span>
+          <span><i class="swatch level-none"></i>Sin alerta reportada</span>
+        </div>
+      </section>
+
+      <section class="selection-card" aria-live="polite">
+        <div class="section-heading"><span class="step-number">03</span><h2 id="selection-title">Consulta espacial</h2></div>
+        <p id="selection-help">Selecciona un municipio o haz clic en el mapa para consultar qué municipio contiene ese punto.</p>
+        <div id="municipality-details" class="details-content"></div>
+      </section>
+
+      <section class="rain-card">
+        <div class="rain-heading"><div><span class="eyebrow">SERIE DIARIA</span><h2 id="chart-title">Precipitación</h2></div><span class="unit-tag">mm</span></div>
+        <canvas id="rain-chart" aria-label="Gráfico de precipitación diaria y nivel de alerta"></canvas>
+        <div class="chart-legend"><span><i class="chart-line"></i>Lluvia estimada</span><span><i class="chart-dot"></i>Nivel de alerta</span></div>
+      </section>
+
+      <p class="data-note">La lluvia es una estimación modelada ECMWF IFS, no una lectura directa de pluviómetro. Las alertas son reportes municipales de IDEAM.</p>
+    </aside>
+
+    <section class="map-panel" aria-label="Mapa de alertas municipales">
+      <div class="map-toolbar"><span><i class="toolbar-dot"></i>MAPA DE ALERTAS</span><button id="fit-map" type="button" aria-label="Enfocar el mapa en Quindío">⌖ <span>Quindío</span></button></div>
+      <div id="map"></div>
+      <div class="map-hint"><span class="hint-icon">⌖</span><span>Haz clic en una zona del mapa para consultar la alerta y la lluvia de esa fecha.</span></div>
+      <div id="map-error" class="map-error" hidden></div>
+    </section>
+  </main>
+
+  <footer><span>PROGRAMACIÓN PARA SIG · TAREA INTEGRADORA</span><span>Fuentes: IDEAM OSPA · Open-Meteo ECMWF IFS</span></footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="./app.js" type="module"></script>
+</body>
+</html>
